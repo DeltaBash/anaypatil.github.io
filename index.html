@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anay - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0a192f;
+            --text: #8892b0;
+            --light: #ccd6f6;
+            --accent: #64ffda;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: var(--text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0 2rem;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 100px 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .intro {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(17, 34, 64, 0.6);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+        }
+
+        .skill-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            background: rgba(17, 34, 64, 0.6);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+        }
+
+        .timeline-item h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item .date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            background: rgba(17, 34, 64, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(100, 255, 218, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .gallery-item-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-item h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* List Items */
+        .list-item {
+            background: rgba(17, 34, 64, 0.6);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--accent);
+        }
+
+        .list-item h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Placeholder Image */
+        .placeholder-img {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(100, 255, 218, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 3rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 80px 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About Anay</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#certification">Certification</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#interests">Interests</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <h1>Hi, I'm Anay</h1>
+        <p class="intro">
+            Welcome to my portfolio! I'm a passionate technologist dedicated to creating innovative solutions 
+            and pushing the boundaries of what's possible. With a strong foundation in technology and a drive 
+            for continuous learning, I strive to make an impact through my work.
+        </p>
+        <p class="intro">
+            Explore my journey through the sections below to learn more about my skills, experiences, 
+            and achievements in the tech world.
+        </p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>⚡ Frontend Development</h3>
+                <p>HTML, CSS, JavaScript, React, Vue.js, responsive design, UI/UX principles</p>
+            </div>
+            <div class="skill-card">
+                <h3>🔧 Backend Development</h3>
+                <p>Node.js, Python, databases, API design, server architecture</p>
+            </div>
+            <div class="skill-card">
+                <h3>☁️ Cloud & DevOps</h3>
+                <p>AWS, Docker, CI/CD, Git, deployment automation</p>
+            </div>
+            <div class="skill-card">
+                <h3>📊 Data & Analytics</h3>
+                <p>Data analysis, visualization, machine learning basics</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Senior Software Engineer</h3>
+                <div class="date">2023 - Present</div>
+                <p>Leading development of scalable web applications and mentoring junior developers. 
+                   Implemented modern architectures resulting in 40% performance improvement.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Full Stack Developer</h3>
+                <div class="date">2021 - 2023</div>
+                <p>Developed and maintained multiple client-facing applications using modern tech stack. 
+                   Collaborated with cross-functional teams to deliver high-quality solutions.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Junior Developer</h3>
+                <div class="date">2019 - 2021</div>
+                <p>Started career building responsive web applications and learning industry best practices. 
+                   Contributed to open-source projects and expanded technical skillset.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <div class="list-item">
+            <h3>Bachelor of Technology in Computer Science</h3>
+            <p class="date">University Name | 2015 - 2019</p>
+            <p>Graduated with honors. Focused on software engineering, algorithms, and data structures.</p>
+        </div>
+        <div class="list-item">
+            <h3>Higher Secondary Education</h3>
+            <p class="date">School Name | 2013 - 2015</p>
+            <p>Specialized in Science stream with focus on Mathematics and Computer Science.</p>
+        </div>
+    </section>
+
+    <section id="certification">
+        <h2>Certifications</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="placeholder-img">🎓</div>
+                <div class="gallery-item-content">
+                    <h3>AWS Certified Solutions Architect</h3>
+                    <p>Amazon Web Services | 2023</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="placeholder-img">🏆</div>
+                <div class="gallery-item-content">
+                    <h3>Google Cloud Professional</h3>
+                    <p>Google Cloud | 2022</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="placeholder-img">✨</div>
+                <div class="gallery-item-content">
+                    <h3>Full Stack Web Development</h3>
+                    <p>freeCodeCamp | 2021</p>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 2rem; color: var(--accent);">
+            💡 Tip: Replace the placeholder emojis with your actual certification images by updating the 
+            .placeholder-img divs with &lt;img src="your-image.jpg" alt="Certification"&gt;
+        </p>
+    </section>
+
+    <section id="awards">
+        <h2>Awards</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="placeholder-img">🏅</div>
+                <div class="gallery-item-content">
+                    <h3>Best Innovation Award</h3>
+                    <p>Tech Conference 2023 - Recognized for outstanding innovation in web development</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="placeholder-img">🌟</div>
+                <div class="gallery-item-content">
+                    <h3>Hackathon Winner</h3>
+                    <p>National Coding Challenge 2022 - First place in web application category</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="placeholder-img">💎</div>
+                <div class="gallery-item-content">
+                    <h3>Employee of the Year</h3>
+                    <p>Company Name 2021 - Outstanding performance and dedication</p>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 2rem; color: var(--accent);">
+            💡 Tip: Add your award photos by replacing the placeholder divs with 
+            &lt;img src="award-photo.jpg" alt="Award"&gt;
+        </p>
+    </section>
+
+    <section id="interests">
+        <h2>Interests</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>💻 Open Source</h3>
+                <p>Contributing to open-source projects and building tools for the developer community</p>
+            </div>
+            <div class="skill-card">
+                <h3>🤖 AI & Machine Learning</h3>
+                <p>Exploring artificial intelligence and its applications in solving real-world problems</p>
+            </div>
+            <div class="skill-card">
+                <h3>📚 Continuous Learning</h3>
+                <p>Always learning new technologies, attending conferences, and staying updated with industry trends</p>
+            </div>
+            <div class="skill-card">
+                <h3>🎮 Tech Innovation</h3>
+                <p>Experimenting with emerging technologies and building innovative projects</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        });
+
+        // Add active state to nav links
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = 'var(--accent)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
