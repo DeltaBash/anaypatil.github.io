@@ -226,7 +226,8 @@
             transition: transform 0.3s ease;
         }
 
-        .skill-parent.expanded .expand-icon {
+        .skill-parent.expanded .skill-parent-header .expand-icon,
+        .skill-parent.hovered .skill-parent-header .expand-icon {
             transform: rotate(180deg);
         }
 
@@ -236,7 +237,8 @@
             transition: max-height 0.4s ease;
         }
 
-        .skill-parent.expanded .skill-subparents {
+        .skill-parent.expanded .skill-subparents,
+        .skill-parent.hovered .skill-subparents {
             max-height: 2000px;
         }
 
@@ -270,11 +272,13 @@
             transition: max-height 0.3s ease;
         }
 
-        .skill-subparent.expanded .skill-children {
+        .skill-subparent.expanded .skill-children,
+        .skill-subparent.hovered .skill-children {
             max-height: 1000px;
         }
 
-        .skill-subparent.expanded .expand-icon {
+        .skill-subparent.expanded .expand-icon,
+        .skill-subparent.hovered .expand-icon {
             transform: rotate(180deg);
         }
 
@@ -1126,19 +1130,72 @@
             });
         });
 
-        // Expandable skill cards
-        document.querySelectorAll('.skill-parent-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const parent = this.parentElement;
-                parent.classList.toggle('expanded');
+        // Expandable skill cards - Hover and Click functionality
+        document.querySelectorAll('.skill-parent').forEach(parent => {
+            const header = parent.querySelector('.skill-parent-header');
+            let isLocked = false;
+
+            // Hover functionality
+            parent.addEventListener('mouseenter', function() {
+                if (!isLocked) {
+                    this.classList.add('hovered');
+                }
+            });
+
+            parent.addEventListener('mouseleave', function() {
+                if (!isLocked) {
+                    this.classList.remove('hovered');
+                    // Also remove hover from all subparents
+                    this.querySelectorAll('.skill-subparent').forEach(sp => {
+                        if (!sp.classList.contains('expanded')) {
+                            sp.classList.remove('hovered');
+                        }
+                    });
+                }
+            });
+
+            // Click functionality to lock/unlock
+            header.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isLocked = !isLocked;
+                
+                if (isLocked) {
+                    parent.classList.add('expanded');
+                    parent.classList.remove('hovered');
+                } else {
+                    parent.classList.remove('expanded');
+                }
             });
         });
 
-        document.querySelectorAll('.skill-subparent-header').forEach(header => {
+        document.querySelectorAll('.skill-subparent').forEach(subparent => {
+            const header = subparent.querySelector('.skill-subparent-header');
+            let isLocked = false;
+
+            // Hover functionality
+            subparent.addEventListener('mouseenter', function() {
+                if (!isLocked) {
+                    this.classList.add('hovered');
+                }
+            });
+
+            subparent.addEventListener('mouseleave', function() {
+                if (!isLocked) {
+                    this.classList.remove('hovered');
+                }
+            });
+
+            // Click functionality to lock/unlock
             header.addEventListener('click', function(e) {
                 e.stopPropagation();
-                const subparent = this.parentElement;
-                subparent.classList.toggle('expanded');
+                isLocked = !isLocked;
+                
+                if (isLocked) {
+                    subparent.classList.add('expanded');
+                    subparent.classList.remove('hovered');
+                } else {
+                    subparent.classList.remove('expanded');
+                }
             });
         });
     </script>
