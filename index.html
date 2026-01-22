@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anay - Portfolio</title>
+    <title>Anay Patil - Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -118,39 +118,184 @@
             background: var(--accent);
         }
 
-        .intro {
-            font-size: 1.2rem;
-            color: var(--text);
-            margin-bottom: 2rem;
-            line-height: 1.8;
+        /* Bio Section with Image */
+        .bio-container {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
         }
 
-        /* Skills Grid */
+        .bio-image {
+            flex: 0 0 300px;
+            position: relative;
+        }
+
+        .bio-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        .bio-image-wrapper {
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(100, 255, 218, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--accent);
+        }
+
+        .bio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bio-content {
+            flex: 1;
+        }
+
+        .bio-content h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .bio-text {
+            font-size: 1.1rem;
+            color: var(--text);
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
 
-        .skill-card {
+        .skill-parent {
             background: rgba(17, 34, 64, 0.6);
-            padding: 2rem;
             border-radius: 8px;
             border: 1px solid rgba(100, 255, 218, 0.1);
             transition: all 0.3s ease;
+            overflow: hidden;
         }
 
-        .skill-card:hover {
-            transform: translateY(-5px);
+        .skill-parent:hover {
             border-color: var(--accent);
             box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
         }
 
-        .skill-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
+        .skill-parent-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .skill-parent-header h3 {
+            color: var(--light);
             font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-parent-header .icon {
+            font-size: 1.5rem;
+        }
+
+        .expand-icon {
+            color: var(--accent);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-parent.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .skill-subparents {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .skill-parent.expanded .skill-subparents {
+            max-height: 2000px;
+        }
+
+        .skill-subparent {
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+            background: rgba(10, 25, 47, 0.5);
+        }
+
+        .skill-subparent-header {
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .skill-subparent-header:hover {
+            background: rgba(100, 255, 218, 0.05);
+        }
+
+        .skill-subparent-header h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .skill-children {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .skill-subparent.expanded .skill-children {
+            max-height: 1000px;
+        }
+
+        .skill-subparent.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .skill-child {
+            padding: 0.7rem 1.5rem 0.7rem 3rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .skill-child:hover {
+            background: rgba(100, 255, 218, 0.05);
+            border-left-color: var(--accent);
+            padding-left: 3.5rem;
+        }
+
+        .skill-child::before {
+            content: '▹';
+            color: var(--accent);
+            margin-right: 0.5rem;
         }
 
         /* Experience Timeline */
@@ -241,7 +386,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Placeholder Image */
         .placeholder-img {
             width: 100%;
             height: 250px;
@@ -254,7 +398,6 @@
             border-bottom: 2px solid var(--accent);
         }
 
-        /* Scroll Indicator */
         .scroll-indicator {
             position: fixed;
             top: 0;
@@ -286,6 +429,29 @@
             section {
                 padding: 80px 1rem 1rem;
             }
+
+            .bio-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .bio-image {
+                flex: 0 0 auto;
+            }
+
+            .bio-image-wrapper {
+                width: 250px;
+                height: 250px;
+            }
+
+            .bio-image::before {
+                width: 250px;
+                height: 250px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -305,36 +471,488 @@
     </nav>
 
     <section id="about">
-        <h1>Hi, I'm Anay</h1>
-        <p class="intro">
-            Welcome to my portfolio! I'm a passionate technologist dedicated to creating innovative solutions 
-            and pushing the boundaries of what's possible. With a strong foundation in technology and a drive 
-            for continuous learning, I strive to make an impact through my work.
-        </p>
-        <p class="intro">
-            Explore my journey through the sections below to learn more about my skills, experiences, 
-            and achievements in the tech world.
-        </p>
+        <h2>About Me</h2>
+        <div class="bio-container">
+            <div class="bio-image">
+                <div class="bio-image-wrapper">
+                    👤
+                    <!-- Replace with: <img src="images/profile.jpg" alt="Anay Patil"> -->
+                </div>
+            </div>
+            <div class="bio-content">
+                <h1>Hi, I'm Anay Patil</h1>
+                <p class="bio-text">
+                    My tech journey began at thirteen, watching my brother assemble a custom PC—a moment that sparked a lifelong fascination and led to my Bachelor's in Computer Science. I am a highly motivated professional who thrives on challenges, evidenced by my rapid 3-month promotion from Intern to Junior IT Support Engineer at Glouben Infotech. This transition was fueled by a fast-learning ability and a proactive problem-solving approach, where I became known as a reliable team player who ensured seamless operations with a strong troubleshooting mindset. Driven by a passion for the "backbone" of modern IT, I moved to Ireland to pursue a Master's in Cloud Computing, immersing myself in Cloud and DevOps with an agile mindset and a commitment to continuous learning. My work ethic extends beyond the technical realm; while studying, I earned Employee of the Month honors at Dalata Hotel Group. This achievement reflects my resilience, attention to detail, and customer-centric focus in high-pressure, fast-paced environments. Today, I am a highly focused, results-oriented Cloud Engineer dedicated to delivering excellence and helping organizations scale through innovative technology.
+                </p>
+            </div>
+        </div>
     </section>
 
     <section id="skills">
         <h2>Skills</h2>
         <div class="skills-grid">
-            <div class="skill-card">
-                <h3>⚡ Frontend Development</h3>
-                <p>HTML, CSS, JavaScript, React, Vue.js, responsive design, UI/UX principles</p>
+            <!-- Cloud & Infrastructure -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">☁️</span> Cloud & Infrastructure</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Cloud Platforms</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">AWS (EC2, S3, RDS, IAM, VPC, Elastic Beanstalk, SNS, CloudWatch, SageMaker)</div>
+                            <div class="skill-child">Microsoft Azure (App Service, SQL Database, Virtual Machines)</div>
+                            <div class="skill-child">Google Cloud Platform (Cloud Functions, Firestore)</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Infrastructure as Code</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Terraform</div>
+                            <div class="skill-child">AWS CloudFormation</div>
+                            <div class="skill-child">Ansible</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Virtualization</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">VMware</div>
+                            <div class="skill-child">VirtualBox</div>
+                            <div class="skill-child">Cloud-based virtual machines</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>🔧 Backend Development</h3>
-                <p>Node.js, Python, databases, API design, server architecture</p>
+
+            <!-- DevOps & Automation -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">⚙️</span> DevOps & Automation</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>CI/CD Pipelines</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Jenkins</div>
+                            <div class="skill-child">GitHub Actions</div>
+                            <div class="skill-child">AWS CodePipeline</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Automation & Scripting</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Bash (Shell scripting)</div>
+                            <div class="skill-child">Python (automation, scripting)</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Quality, Security & DevSecOps</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">SonarCloud (static code analysis)</div>
+                            <div class="skill-child">Unit testing</div>
+                            <div class="skill-child">Vulnerability scanning</div>
+                            <div class="skill-child">DevSecOps practices</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>☁️ Cloud & DevOps</h3>
-                <p>AWS, Docker, CI/CD, Git, deployment automation</p>
+
+            <!-- Containers & Orchestration -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">🐳</span> Containers & Orchestration</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Containerization</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Docker</div>
+                            <div class="skill-child">Docker Compose</div>
+                            <div class="skill-child">Docker Swarm</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Orchestration</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Kubernetes</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>📊 Data & Analytics</h3>
-                <p>Data analysis, visualization, machine learning basics</p>
+
+            <!-- Software Development -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">💻</span> Software Development</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Programming Languages</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Python</div>
+                            <div class="skill-child">JavaScript</div>
+                            <div class="skill-child">TypeScript</div>
+                            <div class="skill-child">C# (.NET)</div>
+                            <div class="skill-child">Java</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Backend Development</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Node.js</div>
+                            <div class="skill-child">Django</div>
+                            <div class="skill-child">Flask</div>
+                            <div class="skill-child">ASP.NET Core</div>
+                            <div class="skill-child">Java Messaging Service (JMS)</div>
+                            <div class="skill-child">Apache Kafka</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Frontend & Mobile Development</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">React</div>
+                            <div class="skill-child">React Native (Expo)</div>
+                            <div class="skill-child">Angular</div>
+                            <div class="skill-child">Redux</div>
+                            <div class="skill-child">Flutter</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>API & Architecture</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">RESTful APIs</div>
+                            <div class="skill-child">Microservices</div>
+                            <div class="skill-child">CQRS</div>
+                            <div class="skill-child">Event Sourcing</div>
+                            <div class="skill-child">Domain-Driven Design (DDD)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data & Databases -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">🗄️</span> Data & Databases</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Relational Databases</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">PostgreSQL</div>
+                            <div class="skill-child">MySQL</div>
+                            <div class="skill-child">Azure SQL</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>NoSQL & Backend Services</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">MongoDB</div>
+                            <div class="skill-child">Supabase</div>
+                            <div class="skill-child">Firestore</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Big Data & Distributed Systems</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Hadoop MapReduce</div>
+                            <div class="skill-child">PySpark</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security & Identity -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">🔒</span> Security & Identity</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Security Fundamentals</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Identity & Access Management (IAM)</div>
+                            <div class="skill-child">Endpoint security</div>
+                            <div class="skill-child">Access control</div>
+                            <div class="skill-child">Security best practices</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Cryptography & Protocols</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">AES</div>
+                            <div class="skill-child">ECC</div>
+                            <div class="skill-child">ECDH</div>
+                            <div class="skill-child">SHA-2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IT Operations & Support -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">🛠️</span> IT Operations & Support</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Service Management</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">ITIL processes</div>
+                            <div class="skill-child">Incident management</div>
+                            <div class="skill-child">Problem management</div>
+                            <div class="skill-child">SLA tracking</div>
+                            <div class="skill-child">Jira Service Desk</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Systems Administration</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Active Directory (users, groups, Group Policy)</div>
+                            <div class="skill-child">Microsoft 365 administration</div>
+                            <div class="skill-child">Windows Server</div>
+                            <div class="skill-child">Linux (Ubuntu, RHEL)</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>End-User & Desktop Support</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Windows OS troubleshooting</div>
+                            <div class="skill-child">macOS fundamentals</div>
+                            <div class="skill-child">Hardware & peripheral support</div>
+                            <div class="skill-child">Printer & AV support</div>
+                            <div class="skill-child">Remote user support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Networking -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">🌐</span> Networking</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Core Networking</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">TCP/IP</div>
+                            <div class="skill-child">DNS</div>
+                            <div class="skill-child">DHCP</div>
+                            <div class="skill-child">IP addressing</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Practical Networking</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Connectivity troubleshooting</div>
+                            <div class="skill-child">Network patching</div>
+                            <div class="skill-child">Ethernet cabling</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monitoring & Enterprise Tools -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">📊</span> Monitoring & Enterprise Tools</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Monitoring & Scheduling</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Geneos</div>
+                            <div class="skill-child">Control-M</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Collaboration & Productivity</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Microsoft Teams</div>
+                            <div class="skill-child">SharePoint</div>
+                            <div class="skill-child">Google Workspace</div>
+                            <div class="skill-child">Microsoft Office Suite</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operating Systems -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">🖥️</span> Operating Systems</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Linux & Unix</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Linux fundamentals</div>
+                            <div class="skill-child">Unix basics</div>
+                            <div class="skill-child">Command-line tools</div>
+                            <div class="skill-child">System logs & troubleshooting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emerging Technologies -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">🚀</span> Emerging Technologies</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Blockchain</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Solidity</div>
+                            <div class="skill-child">Smart Contracts</div>
+                            <div class="skill-child">ethers.js</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Machine Learning</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">KNN</div>
+                            <div class="skill-child">Random Forest</div>
+                            <div class="skill-child">Neural Networks</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Edge & Fog Computing</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">iFogSim2</div>
+                        </div>
+                    </div>
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Automation</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">n8n</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="skill-parent">
+                <div class="skill-parent-header">
+                    <h3><span class="icon">💡</span> Soft Skills</h3>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="skill-subparents">
+                    <div class="skill-subparent">
+                        <div class="skill-subparent-header">
+                            <h4>Core Strengths</h4>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="skill-children">
+                            <div class="skill-child">Customer-focused support</div>
+                            <div class="skill-child">Clear technical communication</div>
+                            <div class="skill-child">Problem-solving & analytical thinking</div>
+                            <div class="skill-child">Process-driven execution</div>
+                            <div class="skill-child">Documentation & knowledge sharing</div>
+                            <div class="skill-child">Continuous learning mindset</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -404,7 +1022,7 @@
         </div>
         <p style="margin-top: 2rem; color: var(--accent);">
             💡 Tip: Replace the placeholder emojis with your actual certification images by updating the 
-            .placeholder-img divs with &lt;img src="your-image.jpg" alt="Certification"&gt;
+            .placeholder-img divs with &lt;img src="images/your-certificate.jpg" alt="Certification"&gt;
         </p>
     </section>
 
@@ -435,28 +1053,44 @@
         </div>
         <p style="margin-top: 2rem; color: var(--accent);">
             💡 Tip: Add your award photos by replacing the placeholder divs with 
-            &lt;img src="award-photo.jpg" alt="Award"&gt;
+            &lt;img src="images/award-photo.jpg" alt="Award"&gt;
         </p>
     </section>
 
     <section id="interests">
         <h2>Interests</h2>
         <div class="skills-grid">
-            <div class="skill-card">
-                <h3>💻 Open Source</h3>
-                <p>Contributing to open-source projects and building tools for the developer community</p>
+            <div class="skill-parent" style="cursor: default;">
+                <div class="skill-parent-header" style="cursor: default;">
+                    <h3><span class="icon">💻</span> Open Source</h3>
+                </div>
+                <div style="padding: 0 1.5rem 1.5rem;">
+                    <p>Contributing to open-source projects and building tools for the developer community</p>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>🤖 AI & Machine Learning</h3>
-                <p>Exploring artificial intelligence and its applications in solving real-world problems</p>
+            <div class="skill-parent" style="cursor: default;">
+                <div class="skill-parent-header" style="cursor: default;">
+                    <h3><span class="icon">🤖</span> AI & Machine Learning</h3>
+                </div>
+                <div style="padding: 0 1.5rem 1.5rem;">
+                    <p>Exploring artificial intelligence and its applications in solving real-world problems</p>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>📚 Continuous Learning</h3>
-                <p>Always learning new technologies, attending conferences, and staying updated with industry trends</p>
+            <div class="skill-parent" style="cursor: default;">
+                <div class="skill-parent-header" style="cursor: default;">
+                    <h3><span class="icon">📚</span> Continuous Learning</h3>
+                </div>
+                <div style="padding: 0 1.5rem 1.5rem;">
+                    <p>Always learning new technologies, attending conferences, and staying updated with industry trends</p>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>🎮 Tech Innovation</h3>
-                <p>Experimenting with emerging technologies and building innovative projects</p>
+            <div class="skill-parent" style="cursor: default;">
+                <div class="skill-parent-header" style="cursor: default;">
+                    <h3><span class="icon">🎮</span> Tech Innovation</h3>
+                </div>
+                <div style="padding: 0 1.5rem 1.5rem;">
+                    <p>Experimenting with emerging technologies and building innovative projects</p>
+                </div>
             </div>
         </div>
     </section>
@@ -489,6 +1123,22 @@
                 if (link.getAttribute('href').slice(1) === current) {
                     link.style.color = 'var(--accent)';
                 }
+            });
+        });
+
+        // Expandable skill cards
+        document.querySelectorAll('.skill-parent-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.classList.toggle('expanded');
+            });
+        });
+
+        document.querySelectorAll('.skill-subparent-header').forEach(header => {
+            header.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const subparent = this.parentElement;
+                subparent.classList.toggle('expanded');
             });
         });
     </script>
