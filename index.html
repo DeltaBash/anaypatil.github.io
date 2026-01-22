@@ -333,34 +333,33 @@
             margin-bottom: 1rem;
         }
 
-        /* Projects Section - Special Hover Effect */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+        /* Projects Carousel Section */
+        .projects-carousel-container {
+            position: relative;
             margin-top: 2rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .projects-carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .projects-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-card {
+            min-width: 100%;
             background: rgba(17, 34, 64, 0.6);
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid rgba(100, 255, 218, 0.1);
             transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        .project-card:hover {
-            transform: scale(1.05);
-            border-color: var(--accent);
-            box-shadow: 0 15px 50px rgba(100, 255, 218, 0.3);
-            z-index: 10;
-        }
-
-        .projects-grid:hover .project-card:not(:hover) {
-            transform: scale(0.9);
-            opacity: 0.5;
-            filter: blur(2px);
         }
 
         .project-card-header {
@@ -418,13 +417,74 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 250px;
-            cursor: default;
+            min-height: 400px;
         }
 
         .coming-soon-card h3 {
             color: var(--accent);
             font-size: 2rem;
+            text-align: center;
+        }
+
+        /* Carousel Navigation */
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: rgba(100, 255, 218, 0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .carousel-btn:hover:not(:disabled) {
+            background: var(--accent);
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+
+        .carousel-counter {
+            color: var(--light);
+            font-size: 1rem;
+            min-width: 80px;
             text-align: center;
         }
 
@@ -507,6 +567,127 @@
             transition: width 0.1s ease;
         }
 
+        /* Lightbox for Certifications */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(100, 255, 218, 0.3);
+            border: 2px solid var(--accent);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(100, 255, 218, 0.2);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: var(--accent);
+            color: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        .gallery-item {
+            cursor: pointer;
+        }
+
+        .gallery-item .placeholder-img {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item .placeholder-img::after {
+            content: '🔍';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .placeholder-img::after {
+            opacity: 0.8;
+        }
+
+        .gallery-item .placeholder-img img {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .placeholder-img img {
+            transform: scale(1.1);
+        }
+
+        /* Contact Section Links */
+        .skill-parent a {
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .skill-parent a:hover {
+            color: var(--primary) !important;
+            transform: translateX(5px);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -551,6 +732,16 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-nav {
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -581,7 +772,7 @@
             <div class="bio-content">
                 <h1>Hi, I'm Anay Patil</h1>
                 <p class="bio-text">
-                    My tech journey began at thirteen, watching my brother assemble a custom PC—a moment that sparked a lifelong fascination and led to my Bachelor's in Computer Science. I am a highly motivated professional who thrives on challenges, evidenced by my rapid 3-month promotion from Intern to Junior IT Support Engineer at Glouben Infotech. This transition was fueled by a fast-learning ability and a proactive problem-solving approach, where I became known as a reliable team player who ensured seamless operations with a strong troubleshooting mindset. Driven by a passion for the "backbone" of modern IT, I moved to Ireland to pursue a Master's in Cloud Computing, immersing myself in Cloud and DevOps with an agile mindset and a commitment to continuous learning. My work ethic extends beyond the technical realm; while studying, I earned Employee of the Month honors at Dalata Hotel Group. This achievement reflects my resilience, attention to detail, and customer-centric focus in high-pressure, fast-paced environments. Today, I am a highly focused, results-oriented Cloud Engineer dedicated to delivering excellence and helping organizations scale through innovative technology.
+                    Welcome to my portfolio! My tech journey began at thirteen, watching my brother assemble a custom PC—a moment that sparked a lifelong fascination and led to my Bachelor's in Computer Science. I am a highly motivated professional who thrives on challenges, evidenced by my rapid 3-month promotion from Intern to Junior IT Support Engineer at Glouben Infotech. This transition was fueled by a fast-learning ability and a proactive problem-solving approach, where I became known as a reliable team player who ensured seamless operations with a strong troubleshooting mindset. Driven by a passion for the "backbone" of modern IT, I moved to Ireland to pursue a Master's in Cloud Computing, immersing myself in Cloud and DevOps with an agile mindset and a commitment to continuous learning. My work ethic extends beyond the technical realm; while studying, I earned Employee of the Month honors at Dalata Hotel Group. This achievement reflects my resilience, attention to detail, and customer-centric focus in high-pressure, fast-paced environments. Today, I am a highly focused, results-oriented Cloud Engineer and a IT Support Engineer dedicated to delivering excellence and helping organizations scale through innovative technology.
                 </p>
             </div>
         </div>
@@ -1092,88 +1283,105 @@
 
     <section id="projects">
         <h2>Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-card-header">
-                    <h3>🚀 Automating AWS Infrastructure with Terraform</h3>
-                    <div class="project-date">May 2025</div>
-                </div>
-                <div class="project-card-content">
-                    <p class="project-tech">Technologies: Terraform, AWS (VPC, EC2, S3, Elastic IP), Apache2, Ubuntu</p>
-                    <p>Automated AWS infrastructure deployment using Terraform as Infrastructure as Code (IaC). Built a complete cloud setup including a custom VPC, Internet Gateway, Route Table, Public Subnet, Security Groups, Elastic IP, and EC2 Ubuntu instance with automated Apache2 installation.</p>
-                    <p><strong>Key Achievements:</strong></p>
-                    <p>• Enabled repeatable, version-controlled infrastructure deployments<br>
-                    • Gained deep insights into AWS networking (VPC, Subnet, ENI, Route Tables, EIP)<br>
-                    • Practical experience with server bootstrapping using user_data</p>
-                    <a href="https://github.com/DeltaBash/Terraform-AWS-Infrastructure" target="_blank" class="project-link">View on GitHub →</a>
+        <div class="projects-carousel-container">
+            <div class="projects-carousel">
+                <div class="projects-track" id="projectsTrack">
+                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <h3>🚀 Automating AWS Infrastructure with Terraform</h3>
+                            <div class="project-date">May 2025</div>
+                        </div>
+                        <div class="project-card-content">
+                            <p class="project-tech">Technologies: Terraform, AWS (VPC, EC2, S3, Elastic IP), Apache2, Ubuntu</p>
+                            <p>Automated AWS infrastructure deployment using Terraform as Infrastructure as Code (IaC). Built a complete cloud setup including a custom VPC, Internet Gateway, Route Table, Public Subnet, Security Groups, Elastic IP, and EC2 Ubuntu instance with automated Apache2 installation.</p>
+                            <p><strong>Key Achievements:</strong></p>
+                            <p>• Enabled repeatable, version-controlled infrastructure deployments<br>
+                            • Gained deep insights into AWS networking (VPC, Subnet, ENI, Route Tables, EIP)<br>
+                            • Practical experience with server bootstrapping using user_data</p>
+                            <a href="https://github.com/DeltaBash/Terraform-AWS-Infrastructure" target="_blank" class="project-link">View on GitHub →</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <h3>🔐 Hybrid Encryption Scheme for Mobile Cloud Computing</h3>
+                            <div class="project-date">Aug 2024 - Dec 2024</div>
+                        </div>
+                        <div class="project-card-content">
+                            <p class="project-tech">Technologies: Android, AES, ECC, SHA-2, ECDH, Azure (App Service, SQL Database), ASP.NET Core, RESTful API</p>
+                            <p>MSc Thesis project: Designed and implemented a hybrid encryption scheme (SecureDataApp) to enhance data security and minimize latency in Mobile Cloud Computing. Integrated advanced cryptographic techniques with Azure cloud services for secure data exchange.</p>
+                            <p><strong>Key Achievements:</strong></p>
+                            <p>• Mastered integration of multiple cryptographic algorithms (AES, ECC, SHA-2, ECDH)<br>
+                            • Optimized computational overhead for resource-limited mobile devices<br>
+                            • Conducted performance experiments comparing encryption schemes</p>
+                            <a href="https://norma.ncirl.ie/8137/" target="_blank" class="project-link">View Publication →</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <h3>📊 Scalable Cloud Programming</h3>
+                            <div class="project-date">May 2024 - Aug 2024</div>
+                        </div>
+                        <div class="project-card-content">
+                            <p class="project-tech">Technologies: Apache PySpark, Hadoop MapReduce, Python, Jupyter Notebook</p>
+                            <p>Built a scalable environment for big data analysis, processing large BGL log datasets using Apache PySpark and Hadoop MapReduce. Focused on optimizing data processing through parallel and distributed computing.</p>
+                            <p><strong>Key Achievements:</strong></p>
+                            <p>• Compared performance of PySpark vs MapReduce for big data processing<br>
+                            • Applied distributed computing design patterns (Filtering, Aggregation, Fault Tolerance)<br>
+                            • Deepened understanding of parallel processing methodologies</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <h3>📰 Cloud Platform Programming - News Application</h3>
+                            <div class="project-date">Jan 2024 - Apr 2024</div>
+                        </div>
+                        <div class="project-card-content">
+                            <p class="project-tech">Technologies: Django, AWS (Elastic Beanstalk, RDS PostgreSQL, S3, CloudWatch, SNS, Load Balancer), Python</p>
+                            <p>Built and deployed a dynamic News Posting Application using Django and AWS. Implemented cloud automation and robust infrastructure design with comprehensive monitoring and load balancing.</p>
+                            <p><strong>Key Achievements:</strong></p>
+                            <p>• Integrated AWS CloudWatch and SNS for monitoring and alerts<br>
+                            • Implemented Load Balancer for high availability<br>
+                            • Developed custom Python library for dynamic headline display</p>
+                            <a href="https://github.com/DeltaBash/Cloud-Programming-Project" target="_blank" class="project-link">View on GitHub →</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <h3>🔒 DevSecOps - Lyrics Sharing Application</h3>
+                            <div class="project-date">Jan 2024 - Apr 2024</div>
+                        </div>
+                        <div class="project-card-content">
+                            <p class="project-tech">Technologies: Django, AWS (CodeBuild, Elastic Beanstalk), GitHub, PyLint, SonarCloud, CI/CD Pipeline</p>
+                            <p>Developed and deployed a dynamic Lyrics Sharing Application with robust DevOps practices. Implemented automated CI/CD pipeline with comprehensive static code analysis and security scanning.</p>
+                            <p><strong>Key Achievements:</strong></p>
+                            <p>• Built comprehensive CI/CD pipeline automating development, testing, and deployment<br>
+                            • Integrated PyLint and SonarCloud for code quality and security<br>
+                            • Achieved seamless deployment and scalability using AWS managed services</p>
+                            <a href="https://github.com/DeltaBash/Devops-Project" target="_blank" class="project-link">View on GitHub →</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 - Coming Soon -->
+                    <div class="project-card coming-soon-card">
+                        <h3>✨ More Projects<br>Coming Soon...</h3>
+                    </div>
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-card-header">
-                    <h3>🔐 Hybrid Encryption Scheme for Mobile Cloud Computing</h3>
-                    <div class="project-date">Aug 2024 - Dec 2024</div>
-                </div>
-                <div class="project-card-content">
-                    <p class="project-tech">Technologies: Android, AES, ECC, SHA-2, ECDH, Azure (App Service, SQL Database), ASP.NET Core, RESTful API</p>
-                    <p>MSc Thesis project: Designed and implemented a hybrid encryption scheme (SecureDataApp) to enhance data security and minimize latency in Mobile Cloud Computing. Integrated advanced cryptographic techniques with Azure cloud services for secure data exchange.</p>
-                    <p><strong>Key Achievements:</strong></p>
-                    <p>• Mastered integration of multiple cryptographic algorithms (AES, ECC, SHA-2, ECDH)<br>
-                    • Optimized computational overhead for resource-limited mobile devices<br>
-                    • Conducted performance experiments comparing encryption schemes</p>
-                    <a href="https://norma.ncirl.ie/8137/" target="_blank" class="project-link">View Publication →</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-card-header">
-                    <h3>📊 Scalable Cloud Programming</h3>
-                    <div class="project-date">May 2024 - Aug 2024</div>
-                </div>
-                <div class="project-card-content">
-                    <p class="project-tech">Technologies: Apache PySpark, Hadoop MapReduce, Python, Jupyter Notebook</p>
-                    <p>Built a scalable environment for big data analysis, processing large BGL log datasets using Apache PySpark and Hadoop MapReduce. Focused on optimizing data processing through parallel and distributed computing.</p>
-                    <p><strong>Key Achievements:</strong></p>
-                    <p>• Compared performance of PySpark vs MapReduce for big data processing<br>
-                    • Applied distributed computing design patterns (Filtering, Aggregation, Fault Tolerance)<br>
-                    • Deepened understanding of parallel processing methodologies</p>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-card-header">
-                    <h3>📰 Cloud Platform Programming - News Application</h3>
-                    <div class="project-date">Jan 2024 - Apr 2024</div>
-                </div>
-                <div class="project-card-content">
-                    <p class="project-tech">Technologies: Django, AWS (Elastic Beanstalk, RDS PostgreSQL, S3, CloudWatch, SNS, Load Balancer), Python</p>
-                    <p>Built and deployed a dynamic News Posting Application using Django and AWS. Implemented cloud automation and robust infrastructure design with comprehensive monitoring and load balancing.</p>
-                    <p><strong>Key Achievements:</strong></p>
-                    <p>• Integrated AWS CloudWatch and SNS for monitoring and alerts<br>
-                    • Implemented Load Balancer for high availability<br>
-                    • Developed custom Python library for dynamic headline display</p>
-                    <a href="https://github.com/DeltaBash/Cloud-Programming-Project" target="_blank" class="project-link">View on GitHub →</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-card-header">
-                    <h3>🔒 DevSecOps - Lyrics Sharing Application</h3>
-                    <div class="project-date">Jan 2024 - Apr 2024</div>
-                </div>
-                <div class="project-card-content">
-                    <p class="project-tech">Technologies: Django, AWS (CodeBuild, Elastic Beanstalk), GitHub, PyLint, SonarCloud, CI/CD Pipeline</p>
-                    <p>Developed and deployed a dynamic Lyrics Sharing Application with robust DevOps practices. Implemented automated CI/CD pipeline with comprehensive static code analysis and security scanning.</p>
-                    <p><strong>Key Achievements:</strong></p>
-                    <p>• Built comprehensive CI/CD pipeline automating development, testing, and deployment<br>
-                    • Integrated PyLint and SonarCloud for code quality and security<br>
-                    • Achieved seamless deployment and scalability using AWS managed services</p>
-                    <a href="https://github.com/DeltaBash/Devops-Project" target="_blank" class="project-link">View on GitHub →</a>
-                </div>
-            </div>
-
-            <div class="project-card coming-soon-card">
-                <h3>✨ More Projects<br>Coming Soon...</h3>
+            <div class="carousel-nav">
+                <button class="carousel-btn" id="prevBtn" onclick="changeProject(-1)">‹</button>
+                <div class="carousel-counter" id="counter">1 / 6</div>
+                <div class="carousel-indicators" id="indicators"></div>
+                <button class="carousel-btn" id="nextBtn" onclick="changeProject(1)">›</button>
             </div>
         </div>
     </section>
@@ -1184,7 +1392,7 @@
             <h3>Master of Science (MSc) in Cloud Computing</h3>
             <p class="date">National College of Ireland, Dublin, Ireland | Jan 2024 – Jan 2025</p>
             <p><strong>Result:</strong> 2:1 Honours</p>
-            <p><strong>Key Modules:</strong> Cloud Platform Programming, DevSecOps, Scalable Cloud Programming, Cloud Security, Cloud Machine Learning, Blockchain Technologies</p>
+            <p><strong>Key Modules:</strong> Cloud Platform Programming, DevSecOps, Scalable Cloud Programming, Cloud Architecture, Cloud Machine Learning, Blockchain Technologies, Fog&Edge Computing</p>
         </div>
         <div class="list-item">
             <h3>Bachelor of Science (BSc) in Computer Science</h3>
@@ -1197,63 +1405,43 @@
     <section id="certification">
         <h2>Certifications</h2>
         <div class="gallery">
-            <div class="gallery-item">
-                <div class="placeholder-img">🎓</div>
+            <div class="gallery-item" onclick="openLightbox('Z:\\Desktop\\anaypatil.github.io\\images\\Coursera IEYQOP9SR1IJ_page-0001.jpg')">
+                <div class="placeholder-img"><img src="Z:\Desktop\anaypatil.github.io\images\Coursera IEYQOP9SR1IJ_page-0001.jpg" alt="Technical Support Fundamentals Certification"></div>
                 <div class="gallery-item-content">
-                    <h3>AWS Certified Solutions Architect</h3>
-                    <p>Amazon Web Services | 2023</p>
+                    <h3>Technical Support Fundamentals</h3>
+                    <p>Google | 2026</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <div class="placeholder-img">🏆</div>
+            <div class="gallery-item" onclick="openLightbox('Z:\\Desktop\\anaypatil.github.io\\images\\Coursera 5JEURFUTRA1W_page-0001.jpg')">
+                <div class="placeholder-img"><img src="Z:\\Desktop\\anaypatil.github.io\\images\\Coursera 5JEURFUTRA1W_page-0001.jpg" alt="The Bits and Bytes of Computer Networking Certification"></div>
                 <div class="gallery-item-content">
-                    <h3>Google Cloud Professional</h3>
-                    <p>Google Cloud | 2022</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="placeholder-img">✨</div>
-                <div class="gallery-item-content">
-                    <h3>Full Stack Web Development</h3>
-                    <p>freeCodeCamp | 2021</p>
+                    <h3>The Bits and Bytes of Computer Networking</h3>
+                    <p>Google | 2026</p>
                 </div>
             </div>
         </div>
-        <p style="margin-top: 2rem; color: var(--accent);">
-            💡 Tip: Replace the placeholder emojis with your actual certification images by updating the 
-            .placeholder-img divs with &lt;img src="images/your-certificate.jpg" alt="Certification"&gt;
-        </p>
+
     </section>
+
+    <!-- Lightbox for Full-Screen Image Viewing -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <img id="lightboxImage" src="" alt="Certification">
+        </div>
+    </div>
 
     <section id="awards">
         <h2>Awards</h2>
         <div class="gallery">
-            <div class="gallery-item">
-                <div class="placeholder-img">🏅</div>
+            <div class="gallery-item" onclick="openLightbox('Z:\\Desktop\\anaypatil.github.io\\images\\Empofmonth.jpeg')">
+                <div class="placeholder-img"><img src="Z:\\Desktop\\anaypatil.github.io\\images\\Empofmonth.jpeg" alt="Employee of The Month"></div>
                 <div class="gallery-item-content">
-                    <h3>Best Innovation Award</h3>
-                    <p>Tech Conference 2023 - Recognized for outstanding innovation in web development</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="placeholder-img">🌟</div>
-                <div class="gallery-item-content">
-                    <h3>Hackathon Winner</h3>
-                    <p>National Coding Challenge 2022 - First place in web application category</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="placeholder-img">💎</div>
-                <div class="gallery-item-content">
-                    <h3>Employee of the Year</h3>
-                    <p>Company Name 2021 - Outstanding performance and dedication</p>
+                    <h3>Employee of The Month</h3>
+                    <p>Nov 2025 - Recognized for resilience, attention to detail, and customer-centric focus</p>
                 </div>
             </div>
         </div>
-        <p style="margin-top: 2rem; color: var(--accent);">
-            💡 Tip: Add your award photos by replacing the placeholder divs with 
-            &lt;img src="images/award-photo.jpg" alt="Award"&gt;
-        </p>
     </section>
 
     <section id="contact">
@@ -1266,10 +1454,10 @@
             <div class="skills-grid">
                 <div class="skill-parent" style="cursor: default;">
                     <div class="skill-parent-header" style="cursor: default;">
-                        <h3><span class="icon">📧</span> Email</h3>
+                        <h3><span class="icon">📧</span> Gmail</h3>
                     </div>
                     <div style="padding: 0 1.5rem 1.5rem;">
-                        <p><a href="mailto:your.email@example.com" style="color: var(--accent); text-decoration: none;">your.email@example.com</a></p>
+                        <p><a href="mailto:anaypatil7112@gmail.com" style="color: var(--accent); text-decoration: none;">anaypatil7112@gmail.com</a></p>
                     </div>
                 </div>
                 <div class="skill-parent" style="cursor: default;">
@@ -1277,7 +1465,7 @@
                         <h3><span class="icon">💼</span> LinkedIn</h3>
                     </div>
                     <div style="padding: 0 1.5rem 1.5rem;">
-                        <p><a href="https://linkedin.com/in/yourprofile" target="_blank" style="color: var(--accent); text-decoration: none;">linkedin.com/in/yourprofile</a></p>
+                        <p><a href="https://www.linkedin.com/in/anaypatil7777/" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">linkedin.com/in/anaypatil7777</a></p>
                     </div>
                 </div>
                 <div class="skill-parent" style="cursor: default;">
@@ -1285,22 +1473,22 @@
                         <h3><span class="icon">💻</span> GitHub</h3>
                     </div>
                     <div style="padding: 0 1.5rem 1.5rem;">
-                        <p><a href="https://github.com/yourusername" target="_blank" style="color: var(--accent); text-decoration: none;">github.com/yourusername</a></p>
+                        <p><a href="https://github.com/DeltaBash" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">github.com/DeltaBash</a></p>
                     </div>
                 </div>
                 <div class="skill-parent" style="cursor: default;">
                     <div class="skill-parent-header" style="cursor: default;">
-                        <h3><span class="icon">📱</span> Phone</h3>
+                        <h3><span class="icon">📧</span> Outlook</h3>
                     </div>
                     <div style="padding: 0 1.5rem 1.5rem;">
-                        <p><a href="tel:+1234567890" style="color: var(--accent); text-decoration: none;">+123 456 7890</a></p>
+                        <p><a href="mailto:anay.patil10@outlook.com" style="color: var(--accent); text-decoration: none;">anay.patil10@outlook.com</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Smooth scroll progress indicator
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -1398,6 +1586,115 @@
                     subparent.classList.remove('expanded');
                 }
             });
+        });
+
+        // Projects Carousel Functionality
+        let currentProject = 0;
+        const totalProjects = 6;
+        const track = document.getElementById('projectsTrack');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicatorsContainer = document.getElementById('indicators');
+
+        // Create indicators
+        function createIndicators() {
+            for (let i = 0; i < totalProjects; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator';
+                if (i === 0) indicator.classList.add('active');
+                indicator.onclick = () => goToProject(i);
+                indicatorsContainer.appendChild(indicator);
+            }
+        }
+
+        function updateCarousel() {
+            // Move the track
+            track.style.transform = `translateX(-${currentProject * 100}%)`;
+            
+            // Update counter
+            counter.textContent = `${currentProject + 1} / ${totalProjects}`;
+            
+            // Update buttons
+            prevBtn.disabled = currentProject === 0;
+            nextBtn.disabled = currentProject === totalProjects - 1;
+            
+            // Update indicators
+            document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentProject);
+            });
+        }
+
+        function changeProject(direction) {
+            const newIndex = currentProject + direction;
+            if (newIndex >= 0 && newIndex < totalProjects) {
+                currentProject = newIndex;
+                updateCarousel();
+            }
+        }
+
+        function goToProject(index) {
+            currentProject = index;
+            updateCarousel();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changeProject(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeProject(1);
+            }
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                changeProject(1); // Swipe left
+               }
+            if (touchEndX > touchStartX + 50) {
+                changeProject(-1); // Swipe right
+            }
+        }
+
+        // Initialize carousel
+        createIndicators();
+        updateCarousel();
+
+        // Lightbox functionality for certifications
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+            // Prevent body scroll when lightbox is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
         });
     </script>
 </body>
