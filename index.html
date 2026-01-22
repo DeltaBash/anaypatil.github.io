@@ -333,6 +333,101 @@
             margin-bottom: 1rem;
         }
 
+        /* Projects Section - Special Hover Effect */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(17, 34, 64, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: 0 15px 50px rgba(100, 255, 218, 0.3);
+            z-index: 10;
+        }
+
+        .projects-grid:hover .project-card:not(:hover) {
+            transform: scale(0.9);
+            opacity: 0.5;
+            filter: blur(2px);
+        }
+
+        .project-card-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+            background: rgba(10, 25, 47, 0.5);
+        }
+
+        .project-card-header h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .project-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .project-card-content {
+            padding: 1.5rem;
+        }
+
+        .project-card-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--accent);
+            color: var(--secondary);
+        }
+
+        .coming-soon-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(100, 255, 218, 0.1));
+            border: 2px dashed var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            cursor: default;
+        }
+
+        .coming-soon-card h3 {
+            color: var(--accent);
+            font-size: 2rem;
+            text-align: center;
+        }
+
         /* Gallery */
         .gallery {
             display: grid;
@@ -998,38 +1093,90 @@
 
     <section id="projects">
         <h2>Projects</h2>
-        <div class="gallery">
-            <div class="gallery-item">
-                <div class="placeholder-img">🚀</div>
-                <div class="gallery-item-content">
-                    <h3>Project Name 1</h3>
-                    <p><strong>Technologies:</strong> List technologies used</p>
-                    <p>Brief description of the project, what problem it solves, and key features implemented.</p>
-                    <p style="margin-top: 0.5rem;"><a href="#" style="color: var(--accent);">View on GitHub →</a></p>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-card-header">
+                    <h3>🚀 Automating AWS Infrastructure with Terraform</h3>
+                    <div class="project-date">May 2025</div>
+                </div>
+                <div class="project-card-content">
+                    <p class="project-tech">Technologies: Terraform, AWS (VPC, EC2, S3, Elastic IP), Apache2, Ubuntu</p>
+                    <p>Automated AWS infrastructure deployment using Terraform as Infrastructure as Code (IaC). Built a complete cloud setup including a custom VPC, Internet Gateway, Route Table, Public Subnet, Security Groups, Elastic IP, and EC2 Ubuntu instance with automated Apache2 installation.</p>
+                    <p><strong>Key Achievements:</strong></p>
+                    <p>• Enabled repeatable, version-controlled infrastructure deployments<br>
+                    • Gained deep insights into AWS networking (VPC, Subnet, ENI, Route Tables, EIP)<br>
+                    • Practical experience with server bootstrapping using user_data</p>
+                    <a href="https://github.com/DeltaBash/Terraform-AWS-Infrastructure" target="_blank" class="project-link">View on GitHub →</a>
                 </div>
             </div>
-            <div class="gallery-item">
-                <div class="placeholder-img">💡</div>
-                <div class="gallery-item-content">
-                    <h3>Project Name 2</h3>
-                    <p><strong>Technologies:</strong> List technologies used</p>
-                    <p>Brief description of the project, what problem it solves, and key features implemented.</p>
-                    <p style="margin-top: 0.5rem;"><a href="#" style="color: var(--accent);">View on GitHub →</a></p>
+
+            <div class="project-card">
+                <div class="project-card-header">
+                    <h3>🔐 Hybrid Encryption Scheme for Mobile Cloud Computing</h3>
+                    <div class="project-date">Aug 2024 - Dec 2024</div>
+                </div>
+                <div class="project-card-content">
+                    <p class="project-tech">Technologies: Android, AES, ECC, SHA-2, ECDH, Azure (App Service, SQL Database), ASP.NET Core, RESTful API</p>
+                    <p>MSc Thesis project: Designed and implemented a hybrid encryption scheme (SecureDataApp) to enhance data security and minimize latency in Mobile Cloud Computing. Integrated advanced cryptographic techniques with Azure cloud services for secure data exchange.</p>
+                    <p><strong>Key Achievements:</strong></p>
+                    <p>• Mastered integration of multiple cryptographic algorithms (AES, ECC, SHA-2, ECDH)<br>
+                    • Optimized computational overhead for resource-limited mobile devices<br>
+                    • Conducted performance experiments comparing encryption schemes</p>
+                    <a href="https://norma.ncirl.ie/8137/" target="_blank" class="project-link">View Publication →</a>
                 </div>
             </div>
-            <div class="gallery-item">
-                <div class="placeholder-img">⚡</div>
-                <div class="gallery-item-content">
-                    <h3>Project Name 3</h3>
-                    <p><strong>Technologies:</strong> List technologies used</p>
-                    <p>Brief description of the project, what problem it solves, and key features implemented.</p>
-                    <p style="margin-top: 0.5rem;"><a href="#" style="color: var(--accent);">View on GitHub →</a></p>
+
+            <div class="project-card">
+                <div class="project-card-header">
+                    <h3>📊 Scalable Cloud Programming</h3>
+                    <div class="project-date">May 2024 - Aug 2024</div>
                 </div>
+                <div class="project-card-content">
+                    <p class="project-tech">Technologies: Apache PySpark, Hadoop MapReduce, Python, Jupyter Notebook</p>
+                    <p>Built a scalable environment for big data analysis, processing large BGL log datasets using Apache PySpark and Hadoop MapReduce. Focused on optimizing data processing through parallel and distributed computing.</p>
+                    <p><strong>Key Achievements:</strong></p>
+                    <p>• Compared performance of PySpark vs MapReduce for big data processing<br>
+                    • Applied distributed computing design patterns (Filtering, Aggregation, Fault Tolerance)<br>
+                    • Deepened understanding of parallel processing methodologies</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-header">
+                    <h3>📰 Cloud Platform Programming - News Application</h3>
+                    <div class="project-date">Jan 2024 - Apr 2024</div>
+                </div>
+                <div class="project-card-content">
+                    <p class="project-tech">Technologies: Django, AWS (Elastic Beanstalk, RDS PostgreSQL, S3, CloudWatch, SNS, Load Balancer), Python</p>
+                    <p>Built and deployed a dynamic News Posting Application using Django and AWS. Implemented cloud automation and robust infrastructure design with comprehensive monitoring and load balancing.</p>
+                    <p><strong>Key Achievements:</strong></p>
+                    <p>• Integrated AWS CloudWatch and SNS for monitoring and alerts<br>
+                    • Implemented Load Balancer for high availability<br>
+                    • Developed custom Python library for dynamic headline display</p>
+                    <a href="https://github.com/DeltaBash/Cloud-Programming-Project" target="_blank" class="project-link">View on GitHub →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-header">
+                    <h3>🔒 DevSecOps - Lyrics Sharing Application</h3>
+                    <div class="project-date">Jan 2024 - Apr 2024</div>
+                </div>
+                <div class="project-card-content">
+                    <p class="project-tech">Technologies: Django, AWS (CodeBuild, Elastic Beanstalk), GitHub, PyLint, SonarCloud, CI/CD Pipeline</p>
+                    <p>Developed and deployed a dynamic Lyrics Sharing Application with robust DevOps practices. Implemented automated CI/CD pipeline with comprehensive static code analysis and security scanning.</p>
+                    <p><strong>Key Achievements:</strong></p>
+                    <p>• Built comprehensive CI/CD pipeline automating development, testing, and deployment<br>
+                    • Integrated PyLint and SonarCloud for code quality and security<br>
+                    • Achieved seamless deployment and scalability using AWS managed services</p>
+                    <a href="https://github.com/DeltaBash/Devops-Project" target="_blank" class="project-link">View on GitHub →</a>
+                </div>
+            </div>
+
+            <div class="project-card coming-soon-card">
+                <h3>✨ More Projects<br>Coming Soon...</h3>
             </div>
         </div>
-        <p style="margin-top: 2rem; color: var(--accent);">
-            💡 Tip: Add project screenshots by replacing placeholders with &lt;img src="images/project1.jpg" alt="Project"&gt;
-        </p>
     </section>
 
     <section id="education">
